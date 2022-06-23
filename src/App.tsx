@@ -1,8 +1,8 @@
 import React from "react";
-import Todos from "./Components/Todos";
+import TodosContainer from "./containers/TodoContainer";
 
 const App = () => {
-    return <Todos />;
+    return <TodosContainer />;
 };
 
 export interface Todo {
