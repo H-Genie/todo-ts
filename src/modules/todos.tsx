@@ -8,6 +8,7 @@ const TOGGLE_TODO_STATUS = "TOGGLE_TODO_STATUS";
 const REMOVE_TODO = "REMOVE_TODO";
 const CLEAR_ALL_TODOS = "CLEAR_ALL_TODOS";
 const RESTORE = "RESTORE";
+const CHANGE_FILTER = "CHANGE_FILTER";
 
 export const changeTodoInput = createAction(CHANGE_TODO_INPUT, (input: string) => input);
 export const addTodo = createAction(ADD_TO_DO, (input: string) => ({
@@ -18,17 +19,20 @@ export const toggleTodoStatus = createAction(TOGGLE_TODO_STATUS, (id: number) =>
 export const removeTodo = createAction(REMOVE_TODO, (id: number) => id);
 export const clearAllTodos = createAction(CLEAR_ALL_TODOS);
 export const restore = createAction(RESTORE, (data: string) => data);
+export const changeFilter = createAction(CHANGE_FILTER, (filter: string) => filter);
 
 export interface TodoState {
     input: string;
     todos: Todo[];
     nextTodoId: number;
+    filter: string;
 }
 
 const initialState: TodoState = {
     input: "",
     todos: [],
     nextTodoId: 1,
+    filter: "ALL",
 };
 
 const todos = createReducer(initialState, {
@@ -65,6 +69,10 @@ const todos = createReducer(initialState, {
             nextTodoId: action.payload.nextTodoId,
         };
     },
+    [CHANGE_FILTER]: (state, { payload: filter }) => ({
+        ...state,
+        filter,
+    }),
 });
 
 export default todos;
