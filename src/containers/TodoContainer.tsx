@@ -3,27 +3,32 @@ import { connect } from "react-redux";
 import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos } from "../modules/todos";
 import Todos from "../Components/Todos";
 import { TodoState } from "../modules/todos";
-import { Dispatch } from "redux";
+import { Todo } from "../App";
 
-type PropsState = ReturnType<typeof mapStateToProps>;
-type PropsDispatch = ReturnType<typeof mapDispatchToProps>;
-interface Props extends PropsState, PropsDispatch {}
+interface Props {
+    readonly input: string;
+    readonly todos: Todo[];
+    readonly removeTodo: (id: number) => void;
+    readonly toggleTodoStatus: (id: number) => void;
+    readonly clearAllTodos: () => void;
+    readonly addTodo: (input: string) => void;
+    readonly changeTodoInput: (input: string) => void;
+}
 
 const TodosContainer = ({ input, todos, changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos }: Props) => {
     return <Todos input={input} todos={todos} onChangeInput={changeTodoInput} onInsert={addTodo} onToggle={toggleTodoStatus} onRemove={removeTodo} onClearAll={clearAllTodos} />;
 };
 
-const mapStateToProps = (state: TodoState) => ({
-    input: state.input,
-    todos: state.todos,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    changeTodoInput: (input: string) => dispatch(changeTodoInput(input)),
-    addTodo: (input: string) => dispatch(addTodo(input)),
-    toggleTodoStatus: (id: number) => dispatch(toggleTodoStatus(id)),
-    removeTodo: (id: number) => dispatch(removeTodo(id)),
-    clearAllTodos: () => dispatch(clearAllTodos()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodosContainer);
+export default connect(
+    (state: TodoState) => ({
+        input: state.input,
+        todos: state.todos,
+    }),
+    (dispatch) => ({
+        changeTodoInput: (input: string) => dispatch(changeTodoInput(input)),
+        addTodo: (input: string) => dispatch(addTodo(input)),
+        toggleTodoStatus: (id: number) => dispatch(toggleTodoStatus(id)),
+        removeTodo: (id: number) => dispatch(removeTodo(id)),
+        clearAllTodos: () => dispatch(clearAllTodos()),
+    })
+)(TodosContainer);
