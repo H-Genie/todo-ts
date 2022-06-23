@@ -1,34 +1,23 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos } from "../modules/todos";
 import Todos from "../Components/Todos";
 import { TodoState } from "../modules/todos";
-import { Todo } from "../App";
 
-interface Props {
-    readonly input: string;
-    readonly todos: Todo[];
-    readonly removeTodo: (id: number) => void;
-    readonly toggleTodoStatus: (id: number) => void;
-    readonly clearAllTodos: () => void;
-    readonly addTodo: (input: string) => void;
-    readonly changeTodoInput: (input: string) => void;
-}
-
-const TodosContainer = ({ input, todos, changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos }: Props) => {
-    return <Todos input={input} todos={todos} onChangeInput={changeTodoInput} onInsert={addTodo} onToggle={toggleTodoStatus} onRemove={removeTodo} onClearAll={clearAllTodos} />;
-};
-
-export default connect(
-    (state: TodoState) => ({
+const TodosContainer = () => {
+    const { input, todos } = useSelector((state: TodoState) => ({
         input: state.input,
         todos: state.todos,
-    }),
-    (dispatch) => ({
-        changeTodoInput: (input: string) => dispatch(changeTodoInput(input)),
-        addTodo: (input: string) => dispatch(addTodo(input)),
-        toggleTodoStatus: (id: number) => dispatch(toggleTodoStatus(id)),
-        removeTodo: (id: number) => dispatch(removeTodo(id)),
-        clearAllTodos: () => dispatch(clearAllTodos()),
-    })
-)(TodosContainer);
+    }));
+    const dispatch = useDispatch();
+
+    const onChangeInput = useCallback((input: string) => dispatch(changeTodoInput(input)), [dispatch]);
+    const onInsert = useCallback((input: string) => dispatch(addTodo(input)), [dispatch]);
+    const onToggle = useCallback((id: number) => dispatch(toggleTodoStatus(id)), [dispatch]);
+    const onRemove = useCallback((id: number) => dispatch(removeTodo(id)), [dispatch]);
+    const onClearAll = useCallback(() => dispatch(clearAllTodos()), [dispatch]);
+
+    return <Todos input={input} todos={todos} onChangeInput={onChangeInput} onInsert={onInsert} onToggle={onToggle} onRemove={onRemove} onClearAll={onClearAll} />;
+};
+
+export default TodosContainer;
