@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos, changeFilter, editTodo } from "../modules/todos";
+import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos, changeFilter, editTodo } from "../actions/todos";
 import Todos from "../Components/Todos";
-import { TodoState } from "../modules/todos";
-import { getFilterTodos } from "../modules/selectors";
+import { TodoState } from "../reducers/todos";
+import { getFilterTodos } from "../selectors/todos";
 
 const TodosContainer = () => {
     const { input, filter, filteredTodos } = useSelector((state: TodoState) => ({

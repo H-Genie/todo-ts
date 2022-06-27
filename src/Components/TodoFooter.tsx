@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styles from "../Todo.module.css";
-import { TodoState } from "../modules/todos";
+import { TodoState } from "../reducers/todos";
 
 interface Props {
     onClearAll: () => void;

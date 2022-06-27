@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setEditingId, resetEditing } from "../modules/todos";
-import { TodoState } from "../modules/todos";
+import { setEditingId, resetEditing } from "../actions/todos";
+import { TodoState } from "../reducers/todos";
 import styles from "../Todo.module.css";
 import { Todo } from "../App";
 

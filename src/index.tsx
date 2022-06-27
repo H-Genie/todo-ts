@@ -2,13 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import { legacy_createStore as createStore } from "redux";
 import { Provider } from "react-redux";
-import todos from "./modules/todos";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { restore } from "./modules/todos";
+import todos from "./reducers/todos";
+import { restore } from "./actions/todos";
+import configureStore from "./store";
 
-const store = createStore(todos, composeWithDevTools());
+const store = configureStore(todos);
 
 const loadData = () => {
     try {

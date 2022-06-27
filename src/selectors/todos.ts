@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { TodoState } from "../modules/todos";
+import { TodoState } from "../reducers/todos";
 
 const getTodos = (state: TodoState) => state.todos;
 const getFilter = (state: TodoState) => state.filter;
