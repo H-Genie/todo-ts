@@ -1,15 +1,15 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos, changeFilter } from "../modules/todos";
+import { changeTodoInput, addTodo, toggleTodoStatus, removeTodo, clearAllTodos, changeFilter, editTodo } from "../modules/todos";
 import Todos from "../Components/Todos";
 import { TodoState } from "../modules/todos";
-import { Todo } from "../App";
+import { getFilterTodos } from "../modules/selectors";
 
 const TodosContainer = () => {
-    const { input, todos, filter } = useSelector((state: TodoState) => ({
+    const { input, filter, filteredTodos } = useSelector((state: TodoState) => ({
         input: state.input,
-        todos: state.todos,
         filter: state.filter,
+        filteredTodos: getFilterTodos(state),
     }));
     const dispatch = useDispatch();
 
@@ -19,24 +19,7 @@ const TodosContainer = () => {
     const onRemove = useCallback((id: number) => dispatch(removeTodo(id)), [dispatch]);
     const onClearAll = useCallback(() => dispatch(clearAllTodos()), [dispatch]);
     const onChangeFilter = useCallback((filter: string) => dispatch(changeFilter(filter)), [dispatch]);
-
-    const getFilteredTodos = (todos: Todo[], filter: string) => {
-        if (filter === "ALL") {
-            return todos;
-        }
-        if (filter === "A") {
-            return todos.filter((todo) => {
-                return todo.done === false;
-            });
-        }
-        if (filter === "B") {
-            return todos.filter((todo) => {
-                return todo.done === true;
-            });
-        }
-    };
-
-    const filteredTodos = getFilteredTodos(todos, filter);
+    const onEdit = useCallback((id: number, input: string) => dispatch(editTodo(id, input)), [dispatch]);
 
     return (
         <Todos
@@ -49,6 +32,7 @@ const TodosContainer = () => {
             onClearAll={onClearAll}
             onChangeFilter={onChangeFilter}
             filter={filter}
+            onEdit={onEdit}
         />
     );
 };
