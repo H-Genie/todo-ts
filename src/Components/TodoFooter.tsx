@@ -20,11 +20,12 @@ const TodoFooter = ({ onClearAll }: Props) => {
 
     const onSave = () => {
         localStorage.setItem("todo-typescript", JSON.stringify(data));
+        alert("변경사항을 저장하였습니다.");
     };
 
     return (
         <div className={styles.footer}>
-            <button onClick={onClearAll}>모두 삭제</button>
+            {todos.length !== 0 && <button onClick={onClearAll}>모두 삭제</button>}
             <button onClick={onSave}>저장</button>
         </div>
     );

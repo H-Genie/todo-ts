@@ -5,6 +5,7 @@ import TodoList from "./TodoList";
 import TodoFooter from "./TodoFooter";
 import { Todo } from "../App";
 import TodoFilter from "./TodoFilter";
+import styles from "../Todo.module.css";
 
 interface Props {
     readonly input: string;
@@ -21,7 +22,7 @@ interface Props {
 
 const Todos = ({ input, todos, onRemove, onToggle, onClearAll, onInsert, onChangeInput, filter, onChangeFilter, onEdit }: Props) => {
     return (
-        <div>
+        <div className={styles.body}>
             <TodoHeader />
             <TodoInput input={input} onInsert={onInsert} onChangeInput={onChangeInput} />
             <TodoFilter filter={filter} onChangeFilter={onChangeFilter} />

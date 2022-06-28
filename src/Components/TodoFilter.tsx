@@ -11,12 +11,12 @@ const TodoFilter = ({ filter, onChangeFilter }: Props) => {
 
     return (
         <div className={styles.filter}>
-            <input type="radio" value="ALL" checked={filter === "ALL"} onChange={handleFilter} />
-            전체
-            <input type="radio" value="A" checked={filter === "A"} onChange={handleFilter} />
-            미완료
-            <input type="radio" value="B" checked={filter === "B"} onChange={handleFilter} />
-            완료
+            <input type="radio" value="ALL" checked={filter === "ALL"} onChange={handleFilter} id="ALL" />
+            <label htmlFor="ALL">전체</label>
+            <input type="radio" value="A" checked={filter === "A"} onChange={handleFilter} id="A" />
+            <label htmlFor="A">미완료</label>
+            <input type="radio" value="B" checked={filter === "B"} onChange={handleFilter} id="B" />
+            <label htmlFor="B">완료</label>
         </div>
     );
 };

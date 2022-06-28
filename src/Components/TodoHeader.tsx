@@ -4,7 +4,7 @@ import styles from "../Todo.module.css";
 const TodoHeader = () => {
     return (
         <div className={styles.headers}>
-            <h1>TODO Application</h1>
+            <h1>To Do List</h1>
         </div>
     );
 };

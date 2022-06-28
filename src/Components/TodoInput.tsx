@@ -10,6 +10,7 @@ interface Props {
 const TodoInput = ({ input, onInsert, onChangeInput }: Props) => {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (input.length === 0) return alert("메시지를 입력해주세요.");
         onInsert(input);
         onChangeInput("");
     };
@@ -20,7 +21,7 @@ const TodoInput = ({ input, onInsert, onChangeInput }: Props) => {
         <div className={styles.input}>
             <form onSubmit={onSubmit}>
                 <input placeholder="할 일을 입력하세요" value={input} onChange={onChange} />
-                <button type="submit">추가</button>
+                <button type="submit">+</button>
             </form>
         </div>
     );

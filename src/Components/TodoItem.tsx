@@ -35,6 +35,10 @@ const TodoItem = ({ todo, onRemove, onToggle, onEdit }: Props) => {
         }
     };
     const handleBlur = () => onResetEditingId();
+    const handleRemove = (id: number) => {
+        const ok = window.confirm("메시지를 삭제할까요?");
+        if (ok) onRemove(id);
+    };
 
     useEffect(() => {
         if (todo) setInputText(todo.text);
@@ -46,10 +50,15 @@ const TodoItem = ({ todo, onRemove, onToggle, onEdit }: Props) => {
 
     return (
         <div className={styles.item}>
-            <input type="checkbox" checked={done} onChange={() => onToggle(id)} />
-            {showInput && <input value={inputText} onChange={onChange} onKeyPress={handleKeyPress} onBlur={handleBlur} ref={editInput} />}
-            {!showInput && <span onDoubleClick={onDoubleClick}>{text}</span>}
-            <button onClick={() => onRemove(id)}>삭제</button>
+            <div>
+                <input type="checkbox" checked={done} onChange={() => onToggle(id)} />
+                {showInput && <input type="text" value={inputText} onChange={onChange} onKeyPress={handleKeyPress} onBlur={handleBlur} ref={editInput} />}
+                {!showInput && <p onDoubleClick={onDoubleClick}>{text}</p>}
+            </div>
+
+            <button onClick={() => handleRemove(id)}>
+                <img src="delete.svg" alt="delete" />
+            </button>
         </div>
     );
 };
